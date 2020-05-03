@@ -84,7 +84,7 @@ class SignUpScreen extends React.Component {
                   <RadioButton
                     value="teacherChecked"
                     status={this.state.userType === 0 ? 'checked' : 'unchecked'}
-                    onPress={() => { this.setState({ userType: 0 }); }}
+                    onPress={() => { this.setState({ userType: 1 }); }}
                   />
                   <Text style={{ marginRight: 30 }}>
                     Teacher Account
@@ -100,7 +100,7 @@ class SignUpScreen extends React.Component {
                   <RadioButton
                     value="studentChecked"
                     status={this.state.userType === 1 ? 'checked' : 'unchecked'}
-                    onPress={() => { this.setState({ userType: 1 }); }}
+                    onPress={() => { this.setState({ userType: 0 }); }}
                   />
                   <Text> Student Account</Text>
                 </View>
@@ -227,7 +227,7 @@ class SignUpScreen extends React.Component {
           <View style={styles.BtnSignUp}>
             <TouchableOpacity style={styles.buttonContainer1}
               onPress={() => {
-                // console.log(this.state)
+                console.log(this.state)
                 signUp(this.state).then(res => {
                   console.log(res.data)
                   if (res.data.userType === 0) {

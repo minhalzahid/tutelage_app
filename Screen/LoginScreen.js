@@ -94,7 +94,7 @@ class LoginScreen extends React.Component {
           <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 50 }}>
             <TouchableOpacity style={styles.buttonContainer}
               onPress={() => {
-                if(this.state.username === '' || this.state.password === ''){
+                if (this.state.username === '' || this.state.password === '') {
                   alert('Please fill out the form')
                 }
                 login(this.state.username, this.state.password).then(res => {
