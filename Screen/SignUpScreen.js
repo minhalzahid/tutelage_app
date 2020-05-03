@@ -7,7 +7,6 @@ import { NavigationContext } from '@react-navigation/native';
 import { RadioButton } from 'react-native-paper';
 import { signUp } from '../API/authAPI';
 import { config } from '../config';
-import AsyncStorage from '@react-native-community/async-storage';
 
 const options = {
   title: 'Choose Profile Photo',
@@ -22,15 +21,7 @@ class SignUpScreen extends React.Component {
   constructor(props) {
     super(props);
   }
-  
 
-  storeData = async (user) => {
-    try {
-      await AsyncStorage.setItem('user', JSON.stringify(user))
-    } catch (e) {
-      console.log('something went worong')
-    }
-  }
 
   myfun = () => {
 
