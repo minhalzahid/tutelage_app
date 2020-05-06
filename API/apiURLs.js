@@ -5,5 +5,7 @@ const { baseURL } = config;
 export const URL = {
   login: `${baseURL}/auth/login`,
   signup: `${baseURL}/auth/signup`,
-  createLecture: `${baseURL}/lecture`
+  createLecture: `${baseURL}/lecture`,
+  getLecture: `${baseURL}/lecture`,
+  enrollLecture: `${baseURL}/lecture/enroll`
 }

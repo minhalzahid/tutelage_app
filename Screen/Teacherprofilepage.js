@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TextInput, StyleSheet, Image, Text, } from 'react-native';
+import { View, TextInput, StyleSheet, Image, Text, AsyncStorage } from 'react-native';
 import { CheckBox, Button } from 'react-native-elements'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-picker';
@@ -12,7 +12,24 @@ const options = {
 }
 
 const logo = require('../images/logo.jpeg'); //Apply Logo pic
-function Teacherprofilepage({ navigation }) {
+class Teacherprofilepage extends React.Component {
+  state = {
+    user: null
+  }
+
+  constructor(props) {
+    super(props)
+    this.getUser().then(data => {
+      console.log(data.user)
+      this.setState({ user: data.user })
+    })
+  }
+
+
+  getUser = async () => {
+    return JSON.parse(await AsyncStorage.getItem('user'))
+  }
+
   myfun = () => {
 
     ImagePicker.showImagePicker(options, (response) => {
@@ -38,89 +55,90 @@ function Teacherprofilepage({ navigation }) {
 
   }
 
-  return (
-    <ScrollView style={styles.main}>
-      <React.Fragment>
-        <View style={styles.container}>
-          <Image
-            style={styles.logo}
-            styles={styles.BorderClass}
-            source={logo}
-          />
-        </View>
-        <View style={styles.header1}>
-          <Text style={styles.header}>
-            Welcome to Teacher Profile !
-          </Text>
-        </View>
-        <TouchableOpacity onPress={this.myfun}>
-          <View style={styles.Image}>
-            <Text > Change Profile</Text>
+  render() {
+    const { navigation } = this.props;
+    const { user } = this.state;
+    return (
+      <ScrollView style={styles.main}>
+        <React.Fragment>
+          <View style={styles.container}>
+            <Image
+              style={styles.logo}
+              styles={styles.BorderClass}
+              source={logo}
+            />
           </View>
-        </TouchableOpacity>
-        <View style={styles.contain}>
-          <TextInput placeholder="User Name" style={styles.input} />
-          <TextInput placeholder="Email" style={styles.input} />
-        </View>
-        <View style={styles.contain1}>
-          <TextInput placeholder="Contact no" style={styles.input} keyboardType='number-pad' maxLength={12} />
-          <TextInput placeholder="Age" style={styles.input} />
-        </View>
-        <View style={styles.contain1}>
-          <TextInput placeholder="password" style={styles.input} secureTextEntry={true} />
-        </View>
-        <View style={styles.contain1}>
-          <TextInput placeholder="Profile Type-Teacher Account" style={styles.input} editable={false} />
-        </View>
-        <View style={styles.Btn}>
-          <TouchableOpacity>
+          <View >
+            <Text style={styles.header}>
+              Welcome to {(user) ? user.userType === 1 ? "Student" : "Teacher" : ""} Profile !
+            </Text>
+          </View>
+          <TouchableOpacity onPress={this.myfun}>
+            <View style={styles.Image}>
+              <Text > Change Profile</Text>
+            </View>
+          </TouchableOpacity>
+          <View style={styles.contain}>
+            <TextInput placeholder="User Name" style={styles.input} value={(user) ? `${user.name.firstName} ${user.name.lastName}` : ""} />
+            <TextInput placeholder="Email" style={styles.input} value={(user) ? `${user.emailAddress}` : ""} />
+          </View>
+          <View style={styles.contain1}>
+            <TextInput placeholder="Contact no" style={styles.input} keyboardType='number-pad' maxLength={12} value={(user) ? `${user.phone}` : ""} />
+            <TextInput placeholder="Age" style={styles.input} value={(user) ? `${user.age}` : ""} />
+          </View>
+          <View style={styles.contain1}>
+            <TextInput placeholder="Profile Type" style={styles.input} editable={false} value={(user) ? `${user.userType === 1 ? 'Student' : "Teacher"}` : ""} />
+          </View>
+          <View style={styles.Btn}>
+            <TouchableOpacity>
+              <Button
+                title="Save Change"
+                type="outline"
+                onPress={() => navigation.navigate('Teacherprofilepage')}
+              />
+            </TouchableOpacity>
+
+          </View>
+          <View style={styles.lastBtn1} >
+            <TouchableOpacity style={styles.buttonContainer1}
+              onPress={() => navigation.navigate('LoginScreen')} >
+              <Text style={styles.buttonText1}>Logout</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.lastBtn} >
             <Button
-              title="Save Change"
+              title="Post Lecture"
+              type="outline"
+              onPress={() => navigation.navigate('Teacherhomepage')}
+            />
+            <Button
+              title="Profile"
               type="outline"
               onPress={() => navigation.navigate('Teacherprofilepage')}
             />
-          </TouchableOpacity>
+            <Button
+              title="Inbox"
+              type="outline"
+              onPress={() => navigation.navigate('Teacherinbox')}
+            />
+            <Button
+              title="Requests"
+              type="outline"
+              onPress={() => navigation.navigate('Request')}
+            />
 
-        </View>
-        <View style={styles.lastBtn1} >
-          <TouchableOpacity style={styles.buttonContainer1}
-            onPress={() => navigation.navigate('LoginScreen')} >
-            <Text style={styles.buttonText1}>Logout</Text>
-          </TouchableOpacity>
-        </View>
+            <Button
+              title="Go Live"
+              type="outline"
+              onPress={() => navigation.navigate('GoLive')}
+            />
+          </View>
 
-        <View style={styles.lastBtn} >
-          <Button
-            title="Post Lecture"
-            type="outline"
-            onPress={() => navigation.navigate('Teacherhomepage')}
-          />
-          <Button
-            title="Profile"
-            type="outline"
-            onPress={() => navigation.navigate('Teacherprofilepage')}
-          />
-          <Button
-            title="Inbox"
-            type="outline"
-            onPress={() => navigation.navigate('Teacherinbox')}
-          />
-          <Button
-            title="Requests"
-            type="outline"
-            onPress={() => navigation.navigate('Request')}
-          />
-
-          <Button
-            title="Go Live"
-            type="outline"
-            onPress={() => navigation.navigate('GoLive')}
-          />
-        </View>
-
-      </React.Fragment>
-    </ScrollView>
-  );
+        </React.Fragment>
+      </ScrollView >
+    );
+  }
 }
 const styles = StyleSheet.create({
   container: {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TextInput, StyleSheet, Image, Text, } from 'react-native';
+import { View, TextInput, StyleSheet, Image, Text, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements'
 import { RadioButton } from 'react-native-paper';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
@@ -25,12 +25,39 @@ class Teacherhomepage extends React.Component {
     }
   };
 
+  logout = async () => {
+    const _navigation = this.context;
+
+    await AsyncStorage.clear()
+    _navigation.navigate('LoginScreen')
+  }
+
+  getData = async () => {
+    return JSON.parse(await AsyncStorage.getItem('user'))
+  }
+
   render() {
     const navigation = this.context;
+    this.getData().then(user => {
+      if (!user) {
+        navigation.navigate('LoginScreen')
+      } else if (user.userType === 0) {
+        navigation.navigate('Studenthomepage')
+      }
+    });
 
     return (
       <ScrollView style={styles.main}>
         <React.Fragment>
+          <View style={{ justifyContent: 'center', marginTop: 30, marginLeft: 20 }}>
+            <TouchableOpacity style={styles.buttonContainer}
+              onPress={() => {
+                this.logout()
+              }}
+            >
+              <Text style={styles.buttonText}>Log out</Text>
+            </TouchableOpacity>
+          </View>
           <View style={{ alignItems: 'center', padding: 15 }}>
             <Text style={styles.header}>
               Post new Lecture !

@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { View, TextInput, StyleSheet, Image, Text, } from 'react-native';
+import { View, TextInput, StyleSheet, Image, Text, AsyncStorage } from 'react-native';
 import { CheckBox, Button } from 'react-native-elements'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
 import { NavigationContext } from '@react-navigation/native';
 import { login } from '../API/authAPI';
-
 
 const logo = require('../images/logo.jpeg');
 class LoginScreen extends React.Component {
@@ -17,9 +16,32 @@ class LoginScreen extends React.Component {
     password: ''
   };
 
+  setData = async (res) => {
+    const _navigation = this.context;
+    await AsyncStorage.setItem("user", JSON.stringify(res.data))
+    if (res.data.user.userType === 1) {
+      _navigation.navigate('Studenthomepage')
+    } else if (res.data.user.userType === 0) {
+      _navigation.navigate('Teacherhomepage')
+    }
+  }
+
+  getData = async () => {
+    return JSON.parse(await AsyncStorage.getItem('user'))
+  }
 
   render() {
     const navigation = this.context;
+    this.getData().then(user => {
+      if (user) {
+        if (user.userType === 0) {
+          navigation.navigate('Studenthomepage')
+        } else if (user.userType === 1) {
+          navigation.navigate('Teacherhomepage')
+        }
+      }
+    });
+
 
     return (
       <ScrollView style={styles.main}>
@@ -97,13 +119,8 @@ class LoginScreen extends React.Component {
                 if (this.state.username === '' || this.state.password === '') {
                   alert('Please fill out the form')
                 }
-                login(this.state.username, this.state.password).then(res => {
-                  console.log(res.data)
-                  if (res.data.user.userType === 0) {
-                    navigation.navigate('Studenthomepage')
-                  } else {
-                    navigation.navigate('Teacherhomepage')
-                  }
+                login(this.state.username, this.state.password).then((res) => {
+                  this.setData(res)
                 }).catch(e => {
                   alert("Invalid username or password")
                 })
