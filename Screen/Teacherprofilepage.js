@@ -3,6 +3,7 @@ import { View, TextInput, StyleSheet, Image, Text, AsyncStorage } from 'react-na
 import { CheckBox, Button } from 'react-native-elements'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-picker';
+import { config } from '../config';
 
 const options = {
   title: 'my pic app',
@@ -70,7 +71,7 @@ class Teacherprofilepage extends React.Component {
           </View>
           <View >
             <Text style={styles.header}>
-              Welcome to {(user) ? user.userType === 1 ? "Student" : "Teacher" : ""} Profile !
+              Welcome to {(user) ? user.userType === config.userType.student ? "Student" : "Teacher" : ""} Profile !
             </Text>
           </View>
           <TouchableOpacity onPress={this.myfun}>
@@ -87,7 +88,7 @@ class Teacherprofilepage extends React.Component {
             <TextInput placeholder="Age" style={styles.input} value={(user) ? `${user.age}` : ""} />
           </View>
           <View style={styles.contain1}>
-            <TextInput placeholder="Profile Type" style={styles.input} editable={false} value={(user) ? `${user.userType === 1 ? 'Student' : "Teacher"}` : ""} />
+            <TextInput placeholder="Profile Type" style={styles.input} editable={false} value={(user) ? `${user.userType === config.userType.student ? 'Student' : "Teacher"}` : ""} />
           </View>
           <View style={styles.Btn}>
             <TouchableOpacity>

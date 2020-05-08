@@ -37,17 +37,14 @@ class StudentHomepage extends React.Component {
 
   enroll = (lectureId) => {
     this.getData().then(user => {
-      enrollLecture(user._id, lectureId).then(res => {
+      enrollLecture(user.user._id, lectureId).then(res => {
         alert("You are enrolled");
       })
         .catch(e => {
-          alert(e.response.message);
+          console.log(e.response)
+          alert(e.response.data ? e.response.data : e);
         })
-
     })
-
-
-
   }
 
   render() {

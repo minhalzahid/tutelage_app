@@ -5,6 +5,7 @@ import { RadioButton } from 'react-native-paper';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { NavigationContext } from '@react-navigation/native';
 import { createLecture } from '../API/lectureAPI';
+import { config } from '../config';
 
 class Teacherhomepage extends React.Component {
   static contextType = NavigationContext;
@@ -41,7 +42,7 @@ class Teacherhomepage extends React.Component {
     this.getData().then(user => {
       if (!user) {
         navigation.navigate('LoginScreen')
-      } else if (user.userType === 0) {
+      } else if (user.userType === config.userType.student) {
         navigation.navigate('Studenthomepage')
       }
     });

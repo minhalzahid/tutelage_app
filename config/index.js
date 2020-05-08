@@ -1,5 +1,9 @@
 export const config = {
   baseURL: 'https://tutelage-app.herokuapp.com/api',
+  userType: {
+    student: 0,
+    teacher: 1
+  },
   country: [
     {
       Name: "Afghanistan",

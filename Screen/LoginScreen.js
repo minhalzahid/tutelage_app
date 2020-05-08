@@ -5,6 +5,7 @@ import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
 import { NavigationContext } from '@react-navigation/native';
 import { login } from '../API/authAPI';
+import { config } from '../config';
 
 const logo = require('../images/logo.jpeg');
 class LoginScreen extends React.Component {
@@ -19,9 +20,9 @@ class LoginScreen extends React.Component {
   setData = async (res) => {
     const _navigation = this.context;
     await AsyncStorage.setItem("user", JSON.stringify(res.data))
-    if (res.data.user.userType === 1) {
+    if (res.data.user.userType === config.userType.student) {
       _navigation.navigate('Studenthomepage')
-    } else if (res.data.user.userType === 0) {
+    } else if (res.data.user.userType === config.userType.teacher) {
       _navigation.navigate('Teacherhomepage')
     }
   }
@@ -34,9 +35,9 @@ class LoginScreen extends React.Component {
     const navigation = this.context;
     this.getData().then(user => {
       if (user) {
-        if (user.userType === 0) {
+        if (user.userType === config.userType.student) {
           navigation.navigate('Studenthomepage')
-        } else if (user.userType === 1) {
+        } else if (user.userType === config.userType.teacher) {
           navigation.navigate('Teacherhomepage')
         }
       }

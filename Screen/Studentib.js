@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -13,7 +11,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { CheckBox,Button } from 'react-native-elements';
+import { CheckBox, Button } from 'react-native-elements';
 import {
   Header,
   LearnMoreLinks,
@@ -21,49 +19,53 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
 import { NavigationContext } from '@react-navigation/native';
 const logo = require('../images/std1.jpg');
 const logo1 = require('../images/std2.jpg');
 const logo2 = require('../images/std3.jpg');
 const logo3 = require('../images/std4.jpg');
 export default class Studentib extends React.Component {
-  
+
   static contextType = NavigationContext;
   constructor(props) {
     super(props);
     this.state = {
       text: '',
-      demoArray:[
-        
-      {id:'1',
-      name:"Student Name",
-      subtitle:'Text Initiate',
-      btn:'Del chat',
-      image:logo,
-      category:"Teacher"
-    },
-    {id:'2',
-    name:"Student Name",
-    subtitle:'Text Initiate',
-    btn:'Del chat',
-    image:logo1,
-    category:"Teacher"
-  },
-  {id:'3',
-  name:"Student Name",
-  subtitle:'Text Initiate',
-  btn:'Del chat',
-  image:logo2,
-  category:"Teacher"
-},
-{id:'4',
-name:"Student Name",
-subtitle:'Text Initiate',
-btn:'Del chat',
-image:logo3,
-category:"Teacher"
-},
-     
+      demoArray: [
+        {
+          id: '1',
+          name: "Student Name",
+          subtitle: 'Text Initiate',
+          btn: 'Del chat',
+          image: logo,
+          category: "Teacher"
+        },
+        {
+          id: '2',
+          name: "Student Name",
+          subtitle: 'Text Initiate',
+          btn: 'Del chat',
+          image: logo1,
+          category: "Teacher"
+        },
+        {
+          id: '3',
+          name: "Student Name",
+          subtitle: 'Text Initiate',
+          btn: 'Del chat',
+          image: logo2,
+          category: "Teacher"
+        },
+        {
+          id: '4',
+          name: "Student Name",
+          subtitle: 'Text Initiate',
+          btn: 'Del chat',
+          image: logo3,
+          category: "Teacher"
+        },
+
 
       ],
       // demoArray:[{id:0,name:'Akhzar'},{id:1,name:'Abrar'}],
@@ -71,128 +73,84 @@ category:"Teacher"
   }
 
 
-render()
- {
-  const navigation = this.context;
-    
-  return (
-    <ScrollView>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-      
+  render() {
+    const navigation = this.context;
+
+    return (
+      <ScrollView>
+        <StatusBar barStyle="dark-content" />
+        <SafeAreaView>
+
           <View style={styles.body}>
 
             <View style={styles.sectionContainer}>
-            <View>
+              <View>
 
-<Text style={{fontSize:25,alignContent:'center'}}>Messages:</Text>
-</View>
-             
-
-        <FlatList
-         data={this.state.demoArray}
-         initialNumToRender={1}
-         extraData={this.state}
-         keyExtractor = { (item, index) => index.toString()}
-         renderItem={({item}) =>
+                <Text style={{ fontSize: 25, alignContent: 'center' }}>Messages:</Text>
+              </View>
 
 
+              <FlatList
+                data={this.state.demoArray}
+                initialNumToRender={1}
+                extraData={this.state}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) =>
+                  <View style={{ flex: 0.9, height: 150, paddingRight: 6, paddingLeft: 6, paddingBottom: 3, paddingTop: 3, justifyContent: 'center', }}>
+                    <TouchableOpacity style={{
+                      justifyContent: 'center', elevation: 3,
+                      height: 150, borderRadius: 4, padding: 4, shadowOpacity: 10, backgroundColor: 'white', shadowColor: 'black'
+                    }}
+                      onPress={() => navigation.navigate('inboxChat')}>
+                      {/* First Apply image Code and View of Image in Flate List */}
+                      <View style={{ flex: 1, flexDirection: 'row', width: 300 }}>
+                        <View style={styles.MainContainer}>
+                          <Image source={item.image} style={{ width: 90, height: 90, borderRadius: 170 / 2 }} />
+                        </View>
+                        {/* Title Code Like Teacher Name */}
+                        <View style={{ flex: 0.5, justifyContent: 'flex-start' }}>
+                          <View style={{ flex: 0.3, justifyContent: 'flex-start' }}>
+                            <Text style={{ color: '#000000', fontSize: 20, fontFamily: 'sans-serif', paddingBottom: 5 }}>
+                              {item.name} </Text>
+                          </View>
+                          {/* Subtitle Code Like  Text Initiate  */}
+                          <View style={{ flex: 0.1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', paddingTop: 5 }}>
 
-         <View style={{flex:0.9,height:150,paddingRight:6,paddingLeft:6,paddingBottom:3,paddingTop:3,justifyContent:'center',}}>
-         <TouchableOpacity style={{justifyContent:'center', elevation: 3,
-         height:150,borderRadius:4,padding:4,shadowOpacity: 10,backgroundColor : 'white',shadowColor: 'black' }}
-         onPress={()=>this.rowSelected(item)}>
+                            <View style={{ alignItems: 'flex-start' }}>
+                              <Text style={{ color: '#000000', fontSize: 15, }}>
+                                {item.subtitle} </Text>
+                            </View>
+                          </View>
+                        </View>
 
-
-{/* First Apply image Code and View of Image in Flate List */}
-             <View style={{flex:1,flexDirection:'row',width:300}}>
-
-               <View style={ styles.MainContainer }>
-
-
-
-  <Image source={item.image}    style={{width: 90, height: 90, borderRadius: 170/2}}/>
-
-               </View>
-{/* Title Code Like Teacher Name */}
-               <View style={{flex:0.5,justifyContent:'flex-start'}}>
-               <View style={{flex:0.3,justifyContent:'flex-start'}}>
-               <Text style={ {color:'#000000',fontSize:20,fontFamily:'Roboto-Regular',paddingBottom:5}}>
-               {item.name} </Text>
-               </View>
-{/* Subtitle Code Like  Text Initiate  */}
-               <View style={{flex:0.1,flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start',paddingTop:5}}>
-
-               <View style={{alignItems:'flex-start'}}>
-               <Text style={{color:'#000000',fontSize:15,}}>
-               {item.subtitle} </Text>
-               </View>
-               </View>
-               </View>
-
-               <TouchableOpacity>
-               <View style={{flex:3,justifyContent:'flex-end'}}>
-               
-               <Text style={{color:'#000000',fontSize:15,fontFamily:'noore-huda',textAlign:'right' ,color: '#9C27B0'}}>
-                     {item.btn} </Text>
-               </View>
-             </TouchableOpacity>
-
-
-
-
-
-             </View>
-
-         </TouchableOpacity>
-          </View>
-        
-
-       }
-
-       />
-
+                        <TouchableOpacity>
+                          <View style={{ flex: 3, justifyContent: 'flex-end' }}>
+                            <Text style={{ color: '#000000', fontSize: 15, fontFamily: 'sans-serif', textAlign: 'right', color: '#9C27B0' }}>
+                              {item.btn} </Text>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                }
+              />
             </View>
-
           </View>
-         
-          
-
-      </SafeAreaView>
-      <View style={styles.lastBt} >
+        </SafeAreaView>
+        <View style={styles.lastBt} >
           <Button
-                      
-                      title="Find
-                            Lecture"
-                        type="outline"
-                        onPress={() => navigation.navigate('StudentHomepage')}
-                                       />
-                                          <Button
-                      
-                      title="InBox"
-                        type="outline"
-                        onPress={() => navigation.navigate('Studentinbox')}
-                                       />
-                                          <Button
-                      
-                      title="Notification"
-                        type="outline"
-                        onPress={() => navigation.navigate('Notificationstd')}
-                                       />
-                                          <Button
-                      
-                      title="Profile"
-                        type="outline"
-                        onPress={() => navigation.navigate('studentprofilepage')}
-                                       />
-
-
-
-          
-
-          </View>
+            title="Notification"
+            type="outline"
+            onPress={() => navigation.navigate('Notificationstd')}
+          />
+          <Button
+            title="Profile"
+            type="outline"
+            onPress={() => navigation.navigate('studentprofilepage')}
+          />
+        </View>
       </ScrollView>
-   
+
     );
   }
 }
@@ -208,9 +166,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     margin: 5,
-    paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
+    paddingTop: (Platform.OS === 'ios') ? 20 : 0
   },
- 
+
   footer: {
     color: Colors.dark,
     fontSize: 12,
@@ -219,15 +177,15 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
-  lastBt:{
-    flex:1,
-    flexDirection:'row',
-    width:440,
-    borderRadius:54,
-   justifyContent:'space-around',
-   padding:30
-         }, 
-  
+  lastBt: {
+    flex: 1,
+    flexDirection: 'row',
+    width: 440,
+    borderRadius: 54,
+    justifyContent: 'space-around',
+    padding: 30
+  },
+
 });
 
 

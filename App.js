@@ -17,6 +17,7 @@ import studentprofilepage from './Screen/studentprofilepage';
 import Check from './Screen/Check';
 import Request from './Screen/Request';
 import Forgetpass from './Screen/Forgetpass';
+import InboxChat from './Screen/InboxChat';
 
 
 const Stack = createStackNavigator();
@@ -121,6 +122,13 @@ function App() {
           />
           <Stack.Screen name="Forgetpass"
             component={Forgetpass}
+            options={{
+              headerTitle: 'Back',
+
+            }}
+          />
+          <Stack.Screen name="inboxChat"
+            component={InboxChat}
             options={{
               headerTitle: 'Back',
 
