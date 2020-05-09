@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { View, TextInput, StyleSheet, Image, Text, } from 'react-native';
-import { CheckBox, Button } from 'react-native-elements'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
 function chat({ navigation }) {

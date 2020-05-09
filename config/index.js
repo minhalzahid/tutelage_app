@@ -1,5 +1,6 @@
 export const config = {
   baseURL: 'https://tutelage-app.herokuapp.com/api',
+  proxy: 'http://localhost:3000/api',
   userType: {
     student: 0,
     teacher: 1
