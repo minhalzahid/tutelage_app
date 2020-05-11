@@ -125,7 +125,7 @@ export default class Studentib extends React.Component {
                       justifyContent: 'center', elevation: 3,
                       height: 150, borderRadius: 4, padding: 4, shadowOpacity: 10, backgroundColor: 'white', shadowColor: 'black'
                     }}
-                      onPress={() => navigation.navigate('inboxChat')}>
+                      onPress={() => navigation.navigate('inboxChat', item._id)}>
                       {/* First Apply image Code and View of Image in Flate List */}
                       <View style={{ flex: 1, flexDirection: 'row', width: 300 }}>
                         {/* Title Code Like Teacher Name */}

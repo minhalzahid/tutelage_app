@@ -1,60 +1,28 @@
 import React, { Component } from 'react';
 import { ChatScreen } from 'react-native-easy-chat-ui'
-
+import { AsyncStorage  } from 'react-native';
+import { getMessages, sendMessage } from '../API/chatAPI';
 
 class InboxChat extends Component {
+  
+  getData = async () => {
+    return JSON.parse(await AsyncStorage.getItem('user'))
+  }
+
+  componentDidMount(){
+    this.getData().then(res => {
+      console.log(res.user._id)
+      getMessages(this.props.route.params, res.user._id).then(res => {
+        console.log(res.data)
+        this.setState({
+          messages: res.data
+        })
+      })
+    })
+  }
+
   state = {
-    messages: [
-      {
-        id: `poiuytrew`,
-        type: 'text',
-        content: 'hello world',
-        targetId: '12345678',
-        chatInfo: {
-          id: '12345678',
-        },
-        renderTime: true,
-        sendStatus: 0,
-        time: '1542006036549'
-      },
-      {
-        id: `oiuytrew`,
-        type: 'text',
-        content: 'hi/{se}',
-        targetId: '12345678',
-        chatInfo: {
-          id: '12345678',
-        },
-        renderTime: true,
-        sendStatus: 0,
-        time: '1542106036549'
-      },
-      {
-        id: `iuytre`,
-        type: 'text',
-        content: "qwertyuiop",
-        targetId: '12345678',
-        chatInfo: {
-          id: '12345678',
-          nickName: 'Test'
-        },
-        renderTime: false,
-        sendStatus: 0,
-        time: '1542106037000'
-      },
-      {
-        id: `uytre`,
-        type: 'text',
-        content: 'hello/{weixiao}',
-        targetId: '88886666',
-        chatInfo: {
-          id: '12345678'
-        },
-        renderTime: true,
-        sendStatus: 1,
-        time: '1542177036549'
-      }
-    ],
+    messages: [],
     // chatBg: require('../../source/bg.jpg'),
     inverted: false,  // require
     voiceHandle: true,
@@ -70,7 +38,20 @@ class InboxChat extends Component {
 
 
   sendMessage = (type, content, isInverted) => {
-    console.log(type, content, isInverted, 'msg')
+    this.getData().then(res => {
+      let body = {
+        message: {
+          body: content,
+          user_id: res.user._id
+        }
+      }
+
+      sendMessage(this.props.route.params, body).then(res => {
+        this.setState({
+          messages: res.data
+        })
+      })
+    })
   }
 
   render() {

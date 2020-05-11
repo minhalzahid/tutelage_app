@@ -6,7 +6,9 @@ import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { NavigationContext } from '@react-navigation/native';
 import { createLecture } from '../API/lectureAPI';
 import { config } from '../config';
+import socketIOClient from 'socket.io-client';
 
+let socket = socketIOClient(`http://192.168.0.106:5252`);
 class Teacherhomepage extends React.Component {
   static contextType = NavigationContext;
 
@@ -26,16 +28,45 @@ class Teacherhomepage extends React.Component {
     }
   };
 
-  logout = async () => {
-    const _navigation = this.context;
-
-    await AsyncStorage.clear()
-    _navigation.navigate('LoginScreen')
-  }
-
   getData = async () => {
     return JSON.parse(await AsyncStorage.getItem('user'))
   }
+
+  componentDidMount(){
+    this.getData().then(res => {
+      console.log(res.user._id)
+      this.setState({
+        token_id: res.user._id,
+        user: res.user
+      }, () => {
+        let socket_packet = {
+          name: this.state.user.name.firstName,
+          token_id: this.state.token_id
+        }
+        socket.emit('add-user', socket_packet)
+      })
+    })
+    // this.setState({
+    //   token_id
+    // }, () => {
+  
+      // var socket_packet = {
+      //   token_id: t
+      // };
+      // socket.emit('add-user', socket_packet);    
+    // })
+  }
+  
+  logout = async () => {
+    const _navigation = this.context;
+
+    socket.emit('disconnect')
+    await AsyncStorage.clear()
+    _navigation.navigate('LoginScreen')
+
+  }
+
+  
 
   render() {
     const navigation = this.context;

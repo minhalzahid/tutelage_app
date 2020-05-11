@@ -8,6 +8,6 @@ export const URL = {
   createLecture: `${baseURL}/lecture`,
   getLecture: `${baseURL}/lecture`,
   enrollLecture: `${baseURL}/lecture/enroll`,
-  chatlist: `${baseURL}/chat`,
+  chat: `${baseURL}/chat`,
   username: `${baseURL}/user`
 }
