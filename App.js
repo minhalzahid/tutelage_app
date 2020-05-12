@@ -13,6 +13,8 @@ import Teacherinbox from './Screen/Teacherinbox';
 import Notificationstd from './Screen/Notificationstd';
 import chat from './Screen/chat';
 import GoLive from './Screen/GoLive';
+import golive2 from './Screen/golive2';
+import mylectures from './Screen/mylectures';
 import studentprofilepage from './Screen/studentprofilepage';
 import Check from './Screen/Check';
 import Request from './Screen/Request';
@@ -56,6 +58,7 @@ function App() {
               headerShown: false,
             }}
           />
+
           <Stack.Screen name="Studenthomepage"
             component={StudentHomepage}
             options={{
@@ -64,6 +67,7 @@ function App() {
               headerShown: false,
             }}
           />
+
           <Stack.Screen name="studentprofilepage"
             component={studentprofilepage}
             options={{
@@ -71,6 +75,7 @@ function App() {
 
             }}
           />
+
           <Stack.Screen name="Readmore"
             component={Readmore}
             options={{
@@ -78,6 +83,7 @@ function App() {
 
             }}
           />
+
           <Stack.Screen name="chat"
             component={chat}
             options={{
@@ -85,6 +91,7 @@ function App() {
 
             }}
           />
+
           <Stack.Screen name="Studentinbox"
             component={Studentib}
             options={{
@@ -99,6 +106,7 @@ function App() {
 
             }}
           />
+
           <Stack.Screen name="Notificationstd"
             component={Notificationstd}
             options={{
@@ -106,6 +114,7 @@ function App() {
 
             }}
           />
+
           <Stack.Screen name="GoLive"
             component={GoLive}
             options={{
@@ -113,6 +122,21 @@ function App() {
 
             }}
           />
+
+          <Stack.Screen name="golive2"
+            component={golive2}
+            options={{
+              headerTitle: 'Back',
+            }}
+          />
+
+          <Stack.Screen name="mylectures"
+            component={mylectures}
+            options={{
+              headerTitle: 'Back',
+            }}
+          />
+
           <Stack.Screen name="Request"
             component={Request}
             options={{

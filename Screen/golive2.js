@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -23,7 +22,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 const logo = require('../images/test.jpg');
 import { NavigationContext } from '@react-navigation/native';
-export default class GoLive extends React.Component {
+export default class golive2 extends React.Component {
   static contextType = NavigationContext;
   constructor(props) {
     super(props);
@@ -49,8 +48,9 @@ export default class GoLive extends React.Component {
   render() {
     const navigation = this.context;
     return (
-      <View>
-        <ScrollView style={styles.main}>
+
+      <React.Fragment>
+        <View>
           <StatusBar barStyle="dark-content" />
 
           <View style={styles.body}>
@@ -58,7 +58,7 @@ export default class GoLive extends React.Component {
             <View style={styles.sectionContainer}>
               <View>
 
-                <Text style={styles.heading}>Go Live Now</Text>
+                <Text style={styles.heading}>Live Lecture Link</Text>
               </View>
 
               <FlatList
@@ -71,7 +71,7 @@ export default class GoLive extends React.Component {
 
 
                   <View style={{ flex: 0.9, height: 200, paddingRight: 6, paddingLeft: 6, paddingTop: 3, justifyContent: 'center', }}>
-                    <TouchableOpacity style={{
+                    <View style={{
                       justifyContent: 'center', elevation: 3,
                       height: 175, borderRadius: 4, shadowOpacity: 10, backgroundColor: 'white', shadowColor: 'black'
                     }}>
@@ -81,7 +81,11 @@ export default class GoLive extends React.Component {
                       <View style={{ flex: 1, flexDirection: 'row', width: 300 }}>
 
                         <View style={styles.MainContainer}>
+
+
+
                           <Image source={item.image} style={{ width: 90, height: 90, borderRadius: 170 / 2, marginLeft: 12 }} />
+
                         </View>
                         {/* Title Code Like Teacher Name */}
                         <View style={{ flex: 0.5, justifyContent: 'flex-start', marginTop: 45 }}>
@@ -99,89 +103,69 @@ export default class GoLive extends React.Component {
                           </View>
                         </View>
 
-                        <TouchableOpacity>
-                          {/* <View style={{flex:0.3,justifyContent:'flex-end'}}>
-               
-             <Text style={{color:'#000000',fontSize:15,fontFamily:'noore-huda',textAlign:'right'}}>
-                   {item.btn} </Text>
-             </View> */}
-                        </TouchableOpacity>
+
+
+
+
+
                       </View>
-                    </TouchableOpacity>
+
+                    </View>
                   </View>
+
+
+
                 }
+
               />
+
             </View>
+
           </View>
+
+
+
+
+
+
           <FlatList
             data={this.state.demoArray}
             initialNumToRender={1}
             extraData={this.state}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) =>
+
+
+
               <View style={{ flex: 0.9, height: 200, width: '91%', paddingRight: 6, paddingLeft: 6, marginLeft: 13, paddingBottom: 3, paddingTop: 3, justifyContent: 'center', }}>
-                <TouchableOpacity style={{
+                <View style={{
                   justifyContent: 'center', elevation: 3,
                   height: 400, borderRadius: 4, padding: 4, shadowOpacity: 10, backgroundColor: 'white', shadowColor: 'black'
                 }}
                   onPress={() => this.rowSelected(item)}>
+
+
                   {/* First Apply image Code and View of Image in Flate List */}
+
+
                   <View style={styles.MainContainer}>
-                    <TextInput placeholder="Link" style={styles.TextStyle} />
+
+                    <TextInput placeholder="Link" style={styles.TextStyle} editable={false} />
+
                   </View>
-                </TouchableOpacity>
+
+
+
+
+
+
+                </View>
               </View>
             }
           />
 
-          <View style={styles.lastBtn2} >
-            <TouchableOpacity style={styles.buttonContainer2}
-              onPress={() => { alert('Lecture Link Posted Successfully.') }}>
-              <Text style={styles.buttonText2}>Post</Text>
-            </TouchableOpacity>
-
-          </View>
-        </ScrollView>
-
-
-        <View style={styles.lastBtn4} >
-          <View style={styles.lastBtn5} >
-            <TouchableOpacity style={styles.buttonContainer5}
-              onPress={() => navigation.navigate('Teacherhomepage')}>
-              <Text style={styles.buttonText5}>Home</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.lastBtn6} >
-            <TouchableOpacity style={styles.buttonContainer5}
-              onPress={() => navigation.navigate('Teacherprofilepage')}>
-              <Text style={styles.buttonText5}>Profile</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.lastBtn7} >
-            <TouchableOpacity style={styles.buttonContainer1}
-              onPress={() => navigation.navigate('Request')}>
-              <Text style={styles.buttonText5}>Requests</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.lastBtn8} >
-            <TouchableOpacity style={styles.buttonContainer1}
-              onPress={() => navigation.navigate('Teacherinbox')}>
-              <Text style={styles.buttonText5}>Inbox</Text>
-            </TouchableOpacity>
-
-          </View>
-
-          <View style={styles.lastBtn9} >
-            <TouchableOpacity style={styles.buttonContainer5}
-              onPress={() => navigation.navigate('GoLive')}>
-              <Text style={styles.buttonText5}>Go Live</Text>
-            </TouchableOpacity>
-          </View>
         </View>
-      </View>
+      </React.Fragment>
 
     );
   }
@@ -189,11 +173,6 @@ export default class GoLive extends React.Component {
 
 
 const styles = StyleSheet.create({
-
-  main: {
-    height: '95.5%',
-  },
-
   body: {
     marginRight: 20,
   },
@@ -218,13 +197,13 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 25,
     alignContent: 'center',
-    marginLeft: '23%',
+    marginLeft: '21%',
     backgroundColor: '#9a090c',
     color: 'white',
     fontWeight: 'bold',
-    marginTop: 5,
-    marginBottom: 10,
-    width: 180,
+    marginTop: 15,
+    marginBottom: 20,
+    width: 200,
     height: 50,
     borderRadius: 9,
     textAlign: 'center',
@@ -245,8 +224,8 @@ const styles = StyleSheet.create({
   },
 
   sectionContainer: {
-    marginTop: 7,
-    marginBottom: 10,
+    marginTop: 15,
+    marginBottom: 15,
     marginLeft: 15,
   },
 
@@ -282,77 +261,6 @@ const styles = StyleSheet.create({
     width: 440,
     borderRadius: 54,
     justifyContent: 'space-around'
-  },
-
-  lastBtn2: {
-    width: 90,
-    height: 40,
-    backgroundColor: '#348224',
-    marginBottom: 30,
-    marginLeft: '68%',
-    borderRadius: 6,
-    marginTop: 25,
-    justifyContent: 'center',
-  },
-
-  buttonText2: {
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 18,
-    marginBottom: 10,
-    paddingTop: 5,
-  },
-
-  lastBtn4: {
-    flex: 3,
-    flexDirection: 'row',
-  },
-
-  lastBtn5: {
-    width: 78,
-    height: 53,
-    backgroundColor: '#9a090c',
-    justifyContent: 'center',
-    paddingTop: 4,
-  },
-
-  buttonText5: {
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 18,
-    marginBottom: 10,
-  },
-
-  lastBtn6: {
-    width: 80,
-    height: 53,
-    backgroundColor: '#9a090c',
-    paddingTop: 12,
-  },
-
-  lastBtn7: {
-    width: 93,
-    height: 53,
-    backgroundColor: '#9a090c',
-    justifyContent: 'center',
-    paddingTop: 4,
-  },
-
-  lastBtn8: {
-    width: 69,
-    height: 53,
-    backgroundColor: '#9a090c',
-    justifyContent: 'center',
-    paddingTop: 4,
-  },
-  lastBtn9: {
-    width: 93,
-    height: 53,
-    backgroundColor: '#9a090c',
-    justifyContent: 'center',
-    paddingTop: 4,
   },
 
 })

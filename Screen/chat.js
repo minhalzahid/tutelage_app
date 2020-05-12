@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { View, TextInput, StyleSheet, Image, Text, } from 'react-native';
+import { CheckBox, Button } from 'react-native-elements'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
 function chat({ navigation }) {
   return (
     <React.Fragment>
-      <View styles={styles.start}><Text style={styles.message}>Message</Text></View>
       <View style={styles.MainContainer}>
+        <View styles={styles.start}><Text style={styles.message}>Message</Text></View>
         <TextInput
           style={styles.TextInputStyleClass}
           underlineColorAndroid="transparent"
@@ -15,26 +16,27 @@ function chat({ navigation }) {
           numberOfLines={5}
           multiline={true}
         />
-      </View>
 
-      <View style={styles.lastBtn1} >
-        <TouchableOpacity style={styles.buttonContainer1}
-          onPress={() => navigation.navigate('StudentHomepage')} >
-          <Text style={styles.buttonText1}>Send</Text>
-        </TouchableOpacity>
+        <View style={styles.lastBtn1} >
+          <TouchableOpacity style={styles.buttonContainer1}
+            onPress={() => { alert('Message has been Sent.') }} >
+            <Text style={styles.buttonText1}>Send</Text>
+          </TouchableOpacity>
+
+        </View>
       </View>
     </React.Fragment>
   )
 }
 const styles = StyleSheet.create({
-
   start: {
-    backgroundColor: 'white',
+    backgroundColor: 'green',
   },
 
   MainContainer: {
     flex: 1,
     backgroundColor: 'white',
+    height: '100%'
   },
 
   message: {
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
 
   TextInputStyleClass: {
 
-    textAlign: 'center',
+    textAlign: 'left',
     borderWidth: 2,
     borderColor: '#9E9E9E',
     borderRadius: 20,
@@ -55,16 +57,19 @@ const styles = StyleSheet.create({
     height: 150,
     marginLeft: 20,
     marginRight: 20,
+
   },
 
   lastBtn1: {
     width: 90,
     height: 40,
-    backgroundColor: '#9a090c',
-    marginBottom: 200,
+    backgroundColor: '#348224',
+    marginBottom: 40,
     marginLeft: '40%',
+    marginTop: 20,
     borderRadius: 6,
     justifyContent: 'center',
+    paddingTop: 7,
   },
 
   buttonText1: {

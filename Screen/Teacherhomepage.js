@@ -32,7 +32,7 @@ class Teacherhomepage extends React.Component {
     return JSON.parse(await AsyncStorage.getItem('user'))
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getData().then(res => {
       console.log(res.user._id)
       this.setState({
@@ -49,14 +49,14 @@ class Teacherhomepage extends React.Component {
     // this.setState({
     //   token_id
     // }, () => {
-  
-      // var socket_packet = {
-      //   token_id: t
-      // };
-      // socket.emit('add-user', socket_packet);    
+
+    // var socket_packet = {
+    //   token_id: t
+    // };
+    // socket.emit('add-user', socket_packet);    
     // })
   }
-  
+
   logout = async () => {
     const _navigation = this.context;
 
@@ -66,7 +66,7 @@ class Teacherhomepage extends React.Component {
 
   }
 
-  
+
 
   render() {
     const navigation = this.context;
@@ -79,154 +79,174 @@ class Teacherhomepage extends React.Component {
     });
 
     return (
-      <ScrollView style={styles.main}>
-        <React.Fragment>
-          <View style={{ justifyContent: 'center', marginTop: 30, marginLeft: 20 }}>
-            <TouchableOpacity style={styles.buttonContainer}
-              onPress={() => {
-                this.logout()
-              }}
-            >
-              <Text style={styles.buttonText}>Log out</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ alignItems: 'center', padding: 15 }}>
-            <Text style={styles.header}>
-              Post new Lecture !
-            </Text>
-          </View>
-          <View style={styles.contain}>
-            <TextInput placeholder="Course/Subject" value={this.state.course}
-              onChange={(e) => {
-                this.setState({
-                  course: e.nativeEvent.text
-                })
-              }}
-              style={styles.input} />
-            <TextInput placeholder="Topic Name" value={this.state.topic}
-              onChange={(e) => {
-                this.setState({
-                  topic: e.nativeEvent.text
-                })
-              }}
-              style={styles.input} />
-          </View>
-          <View>
-            <Text style={styles.description}>
-              Decription
-            </Text>
-          </View>
-          <View style={styles.MainContainer}>
-            <TextInput
-              style={styles.TextInputStyleClass}
-              underlineColorAndroid="transparent"
-              placeholder={"Type Something...."}
-              placeholderTextColor={"#9E9E9E"}
-              numberOfLines={5}
-              value={this.state.description}
-              onChange={(e) => {
-                this.setState({
-                  description: e.nativeEvent.text
-                })
-              }}
-              multiline={true}
-            />
-          </View>
-          <View >
-            <Text style={styles.select}> Select One of the folllowing:</Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: '20%', }}>
-              <RadioButton
-                value="onlineChecked"
-                status={this.state.checked === 'onlineChecked' ? 'checked' : 'unchecked'}
-                onPress={() => { this.setState({ checked: 'onlineChecked' }); }}
-              />
-              <Text style={{ fontSize: 16, }}> Online</Text>
+      <View>
+        <ScrollView style={styles.main}>
+          <React.Fragment>
+            <View style={styles.top}>
+              <View style={styles.lastBtn3} >
+                <TouchableOpacity style={styles.buttonContainer3}
+                  onPress={() => {
+                    this.logout()
+                  }} >
+                  <Text style={styles.buttonText3}>Logout</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.btnLec} >
+                <TouchableOpacity style={styles.lastLec}
+                  onPress={() => navigation.navigate('mylectures')} >
+                  <Text style={styles.textLec}>My Lectures</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: '20%', }}>
-              <RadioButton
-                value="offlineChecked"
-                status={this.state.checked === 'offlineChecked' ? 'checked' : 'unchecked'}
-                onPress={() => { this.setState({ checked: 'offlineChecked' }); }}
-              />
-              <Text style={{ fontSize: 16, }}> Offline</Text>
+            <View style={{ alignItems: 'center', padding: 15 }}>
+              <Text style={styles.header}>
+                Post new Lecture !
+            </Text>
             </View>
-
-          </View>
-          <View><Text style={styles.venue}>Venue</Text>
+            <View style={styles.contain}>
+              <TextInput placeholder="Course/Subject" value={this.state.course}
+                onChange={(e) => {
+                  this.setState({
+                    course: e.nativeEvent.text
+                  })
+                }}
+                style={styles.input} />
+              <TextInput placeholder="Topic Name" value={this.state.topic}
+                onChange={(e) => {
+                  this.setState({
+                    topic: e.nativeEvent.text
+                  })
+                }}
+                style={styles.input} />
+            </View>
+            <View>
+              <Text style={styles.description}>
+                Decription
+            </Text>
+            </View>
             <View style={styles.MainContainer}>
               <TextInput
-                style={styles.TextInputStyleClass2}
+                style={styles.TextInputStyleClass}
                 underlineColorAndroid="transparent"
-                placeholder={"Type about Venue."}
+                placeholder={"Type Something...."}
                 placeholderTextColor={"#9E9E9E"}
                 numberOfLines={5}
+                value={this.state.description}
+                onChange={(e) => {
+                  this.setState({
+                    description: e.nativeEvent.text
+                  })
+                }}
                 multiline={true}
               />
             </View>
-          </View>
+            <View >
+              <Text style={styles.select}> Select One of the folllowing:</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: '20%', }}>
+                <RadioButton
+                  value="onlineChecked"
+                  status={this.state.checked === 'onlineChecked' ? 'checked' : 'unchecked'}
+                  onPress={() => { this.setState({ checked: 'onlineChecked' }); }}
+                />
+                <Text style={{ fontSize: 16, }}> Online</Text>
+              </View>
 
-          <View style={styles.lastBtn1} >
-            <TouchableOpacity style={styles.buttonContainer1}
-              onPress={() => {
-                console.log(this.state)
-                createLecture(this.state.course, this.state.topic, this.state.description, this.state.schedule, this.state.link).then(res => {
-                  alert("lecture Created !")
-                  this.setState({
-                    ...this.state.default
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: '20%', }}>
+                <RadioButton
+                  value="offlineChecked"
+                  status={this.state.checked === 'offlineChecked' ? 'checked' : 'unchecked'}
+                  onPress={() => { this.setState({ checked: 'offlineChecked' }); }}
+                />
+                <Text style={{ fontSize: 16, }}> Offline</Text>
+              </View>
+
+            </View>
+            <View><Text style={styles.venue}>Venue</Text>
+              <View style={styles.MainContainer}>
+                <TextInput
+                  style={styles.TextInputStyleClass2}
+                  underlineColorAndroid="transparent"
+                  placeholder={"Type about Venue."}
+                  placeholderTextColor={"#9E9E9E"}
+                  numberOfLines={5}
+                  multiline={true}
+                />
+              </View>
+            </View>
+
+            <View style={styles.lastBtn1} >
+              <TouchableOpacity style={styles.buttonContainer1}
+                onPress={() => {
+                  console.log(this.state)
+                  createLecture(this.state.course, this.state.topic, this.state.description, this.state.schedule, this.state.link).then(res => {
+                    alert("lecture Created !")
+                    this.setState({
+                      ...this.state.default
+                    })
+                  }).catch(e => {
+                    alert((e.response.data.message) ? e.response.data.message : e.response.data)
                   })
-                }).catch(e => {
-                  alert((e.response.data.message) ? e.response.data.message : e.response.data)
-                })
-              }} >
-              <Text style={styles.buttonText1}>Post</Text>
+                }} >
+                <Text style={styles.buttonText1}>Post</Text>
+              </TouchableOpacity>
+            </View>
+          </React.Fragment>
+        </ScrollView>
+
+        <View style={styles.lastBtn} >
+          <View style={styles.lastBtn5} >
+            <TouchableOpacity style={styles.buttonContainer5}
+              onPress={() => navigation.navigate('Teacherhomepage')}>
+              <Text style={styles.buttonText5}>Home</Text>
             </TouchableOpacity>
           </View>
 
-
-          <View style={styles.lastBtn} >
-            <Button
-              title="Post Lecture"
-              type="outline"
-              onPress={() => navigation.navigate('Teacherhomepage')}
-            />
-            <Button
-              title="Profile"
-              type="outline"
-              onPress={() => navigation.navigate('Teacherprofilepage')}
-            />
-            <Button
-              title="Inbox"
-              type="outline"
-              onPress={() => navigation.navigate('Teacherinbox')}
-            />
-            <Button
-              title="Requests"
-              type="outline"
-              onPress={() => navigation.navigate('Request')}
-            />
-
-            <Button
-              title="Go Live"
-              type="outline"
-              onPress={() => navigation.navigate('GoLive')}
-            />
+          <View style={styles.lastBtn6} >
+            <TouchableOpacity style={styles.buttonContainer5}
+              onPress={() => navigation.navigate('Teacherprofilepage')}>
+              <Text style={styles.buttonText5}>Profile</Text>
+            </TouchableOpacity>
           </View>
-        </React.Fragment>
-      </ScrollView>
+          <View style={styles.lastBtn7} >
+            <TouchableOpacity style={styles.buttonContainer1}
+              onPress={() => navigation.navigate('Request')}>
+              <Text style={styles.buttonText5}>Requests</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.lastBtn8} >
+            <TouchableOpacity style={styles.buttonContainer1}
+              onPress={() => navigation.navigate('Studentinbox')}>
+              <Text style={styles.buttonText5}>Inbox</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.lastBtn9} >
+            <TouchableOpacity style={styles.buttonContainer5}
+              onPress={() => navigation.navigate('GoLive')}>
+              <Text style={styles.buttonText5}>Go Live</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     )
   }
 }
+
 const styles = StyleSheet.create({
+
+  top: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+
   header: {
     fontSize: 25,
     color: 'white',
     fontWeight: 'bold',
     backgroundColor: '#9a090c',
-    borderRadius: 9,
+    borderRadius: 23,
     height: 50,
     width: 260,
-    paddingLeft: '7%',
+    paddingLeft: '8%',
     paddingTop: 7,
     marginTop: 45,
     marginBottom: 30,
@@ -234,6 +254,7 @@ const styles = StyleSheet.create({
 
   main: {
     backgroundColor: 'white',
+    height: '95.5%',
   },
 
   text: {
@@ -283,7 +304,7 @@ const styles = StyleSheet.create({
   lastBtn1: {
     width: 90,
     height: 40,
-    backgroundColor: '#9a090c',
+    backgroundColor: '#348224',
     marginTop: 40,
     marginBottom: 40,
     marginLeft: '40%',
@@ -298,8 +319,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     marginBottom: 10,
+  },
 
+  lastBtn3: {
+    width: 90,
+    height: 40,
+    backgroundColor: '#348224',
+    marginTop: 20,
+    marginLeft: '5%',
+    borderRadius: 6,
+    justifyContent: 'center',
+    paddingTop: 4,
+  },
 
+  buttonText3: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 10,
   },
 
   TextInputStyleClass2: {
@@ -336,12 +374,77 @@ const styles = StyleSheet.create({
 
 
   lastBtn: {
-    flex: 1,
+    flex: 3,
     flexDirection: 'row',
-    width: 440,
-    borderRadius: 54,
-    justifyContent: 'space-around'
-  }
+  },
 
+  lastBtn5: {
+    width: 78,
+    height: 53,
+    backgroundColor: '#9a090c',
+    justifyContent: 'center',
+    paddingTop: 4,
+  },
+
+  buttonText5: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 10,
+  },
+
+  lastBtn6: {
+    width: 80,
+    height: 53,
+    backgroundColor: '#9a090c',
+    paddingTop: 12,
+  },
+
+  lastBtn7: {
+    width: 93,
+    height: 53,
+    backgroundColor: '#9a090c',
+    justifyContent: 'center',
+    paddingTop: 4,
+  },
+
+  lastBtn8: {
+    width: 69,
+    height: 53,
+    backgroundColor: '#9a090c',
+    justifyContent: 'center',
+    paddingTop: 4,
+  },
+  lastBtn9: {
+    width: 93,
+    height: 53,
+    backgroundColor: '#9a090c',
+    justifyContent: 'center',
+    paddingTop: 4,
+  },
+  btnLec: {
+    width: 130,
+    height: 40,
+    backgroundColor: '#348224',
+    marginLeft: '36%',
+    borderRadius: 6,
+    justifyContent: 'center',
+    marginTop: 19,
+    paddingTop: 4,
+  },
+
+  textLec: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 10,
+  },
+
+  lastLec: {
+    backgroundColor: '#348224',
+  },
 })
+
 export default Teacherhomepage;

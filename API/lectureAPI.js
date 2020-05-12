@@ -18,3 +18,7 @@ export const enrollLecture = (userId, lectureId) => {
     return axios.post(URL.enrollLecture, body)
 }
 
+export const getMyLectures = (id) => {
+    return axios.get(`${URL.myLecture}/${id}`)
+}
+

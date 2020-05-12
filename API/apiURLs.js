@@ -9,5 +9,6 @@ export const URL = {
   getLecture: `${baseURL}/lecture`,
   enrollLecture: `${baseURL}/lecture/enroll`,
   chat: `${baseURL}/chat`,
-  username: `${baseURL}/user`
+  username: `${baseURL}/user`,
+  myLecture: `${baseURL}/lecture/myLectures`
 }

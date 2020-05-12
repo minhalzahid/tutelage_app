@@ -51,16 +51,39 @@ class StudentHomepage extends React.Component {
     const navigation = this.context;
 
     return (
-      <ScrollView>
-        <React.Fragment>
+      <View>
+        <ScrollView style={styles.main}>
 
-          <View style={styles.field}>
+          {/* <View style={styles.field}>
             <TextInput style={{ fontSize: 19, fontWeight: 'bold', }} placeholder=" Search Lecture" />
           </View>
 
           <View style={{ alignItems: 'center' }}>
             <Text style={{ fontSize: 22, padding: 10 }}>
               Find Lecture !
+            </Text>
+          </View> */}
+          <View style={styles.field}>
+            <TextInput style={styles.search} placeholder=" Search Topic" />
+            <View style={styles.lastBtn4} >
+              <TouchableOpacity style={styles.buttonContainer4}
+                onPress={() => navigation.navigate('search')}>
+                <Text style={styles.buttonText4}>Go</Text>
+              </TouchableOpacity>
+
+            </View>
+          </View>
+
+          <View style={styles.logout} >
+            <TouchableOpacity style={styles.logoutContainer}
+              onPress={() => navigation.navigate('LoginScreen')} >
+              <Text style={styles.logoutText}>Logout</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.sectionContainer}>
+            <Text style={styles.heading}>
+              Upcoming Lectures
             </Text>
           </View>
 
@@ -90,65 +113,99 @@ class StudentHomepage extends React.Component {
                 </View>
 
                 <View style={styles.lastBtn} >
-                  <Button
+                  <View style={styles.lastBtn1} >
+                    <TouchableOpacity style={styles.buttonContainer1}
+                      onPress={() => { alert('Request Sent Successfully!') }} >
+                      <Text style={styles.buttonText1}>Attend</Text>
+                    </TouchableOpacity>
+                  </View>
 
-                    title="Attend Class"
-                    type="solid"
-                    onPress={() => this.enroll(x._id)}
-                  />
-                  <Button
+                  <View style={styles.lastBtn2} >
+                    <TouchableOpacity style={styles.buttonContainer2}
+                      onPress={() => navigation.navigate('chat')} >
+                      <Text style={styles.buttonText2}>Chat</Text>
+                    </TouchableOpacity>
+                  </View>
 
-                    title="Chat_Box"
-                    type="solid"
-                    onPress={() => navigation.navigate('chat')}
-                  />
-                  <Button
+                  <View style={styles.lastBtn3} >
+                    <TouchableOpacity style={styles.buttonContainer3}
+                      onPress={() => navigation.navigate('Readmore')} >
+                      <Text style={styles.buttonText3}>Read More</Text>
+                    </TouchableOpacity>
+                  </View>
 
-                    title="Read_More"
-                    type="solid"
-                    onPress={() => navigation.navigate('Readmore')}
-                  />
                 </View>
 
               </View>
 
             )
           })}
-
-
-          <View style={styles.lastBt} >
-
-            <Button
-              title="InBox"
-              type="outline"
-              onPress={() => navigation.navigate('Studentinbox')}
-            />
-            <Button
-              title="Notification"
-              type="outline"
-              onPress={() => navigation.navigate('Notificationstd')}
-            />
-            <Button
-              title="Profile"
-              type="outline"
-              onPress={() => navigation.navigate('Teacherprofilepage')}
-            />
+        </ScrollView>
+        
+        <View style={styles.lastButton} >
+          <View style={styles.lastBtn5} >
+            <TouchableOpacity style={styles.buttonContainer5}
+              onPress={() => navigation.navigate('Studenthomepage')}>
+              <Text style={styles.buttonText5}>Home</Text>
+            </TouchableOpacity>
           </View>
-        </React.Fragment>
 
-      </ScrollView>
+          <View style={styles.lastBtn5} >
+            <TouchableOpacity style={styles.buttonContainer5}
+              onPress={() => navigation.navigate('Teacherprofilepage')}>
+              <Text style={styles.buttonText5}>Profile</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.lastBtn5} >
+            <TouchableOpacity style={styles.buttonContainer1}
+              onPress={() => navigation.navigate('Studentinbox')}>
+              <Text style={styles.buttonText5}>Inbox</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.lastBtn6} >
+            <TouchableOpacity style={styles.buttonContainer1}
+              onPress={() => navigation.navigate('Notificationstd')}>
+              <Text style={styles.buttonText5}>Notifications</Text>
+            </TouchableOpacity>
+
+          </View>
+        </View>
+      </View>
     )
   }
 }
 const styles = StyleSheet.create({
+  search: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    backgroundColor: 'white',
+  },
+
+  main: {
+    backgroundColor: 'white',
+    height: '95.5%',
+  },
+
   field: {
     alignItems: 'center',
     borderWidth: 1,
+    flex: 1,
+    flexDirection: 'row',
     paddingTop: 10,
     alignContent: 'center',
     backgroundColor: 'white',
-    fontSize: 22,
+    fontSize: 24,
   },
+
+  description: {
+    fontSize: 20,
+    marginTop: 20,
+    paddingLeft: 15,
+    marginBottom: 7,
+  },
+
   text: {
     alignItems: 'center',
     padding: 10,
@@ -161,6 +218,29 @@ const styles = StyleSheet.create({
     borderRadius: 54,
     alignItems: 'flex-end',
 
+  },
+
+  heading: {
+    fontSize: 26,
+    alignContent: 'center',
+    marginLeft: '11.5%',
+    backgroundColor: '#9a090c',
+    color: 'white',
+    fontWeight: 'bold',
+    marginTop: 15,
+    marginBottom: 10,
+    width: 280,
+    height: 60,
+    borderRadius: 35,
+    textAlign: 'center',
+    paddingTop: 10,
+  },
+
+  sectionContainer: {
+    marginTop: 15,
+    marginBottom: 15,
+    marginLeft: 15,
+    backgroundColor: 'white',
   },
 
   logo: {
@@ -187,9 +267,28 @@ const styles = StyleSheet.create({
     margin: 5
 
   },
-  TextInputStyleClass: {
 
+  logout: {
+    width: 90,
+    height: 40,
+    backgroundColor: '#348224',
+    marginTop: 20,
+    marginLeft: '5%',
+    borderRadius: 6,
+    justifyContent: 'center',
+    paddingTop: 4,
+  },
+
+  logoutText: {
     textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 10,
+  },
+
+  TextInputStyleClass: {
+    textAlign: 'left',
     height: 50,
     borderWidth: 2,
     borderColor: '#9E9E9E',
@@ -204,7 +303,7 @@ const styles = StyleSheet.create({
   lastBtn: {
     flex: 1,
     flexDirection: 'row',
-    width: 440,
+    width: 390,
     borderRadius: 54,
     justifyContent: 'space-around',
     marginBottom: 15,
@@ -218,6 +317,81 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 30
   },
+
+  lastBtn4: {
+    width: 60,
+    height: 40,
+    backgroundColor: '#348224',
+    marginLeft: '54%',
+    justifyContent: 'center',
+    marginBottom: 5,
+    borderRadius: 8,
+    paddingTop: 5,
+  },
+
+  buttonText4: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: 10,
+  },
+
+  lastBtn1: {
+    width: 100,
+    height: 40,
+    backgroundColor: '#348224',
+    marginBottom: 40,
+    marginLeft: '4%',
+    borderRadius: 6,
+    justifyContent: 'center',
+  },
+
+  buttonText1: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 10,
+    paddingTop: 5,
+  },
+
+  lastBtn2: {
+    width: 100,
+    height: 40,
+    backgroundColor: '#348224',
+    marginBottom: 40,
+    borderRadius: 6,
+    justifyContent: 'center',
+  },
+
+  buttonText2: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 10,
+    paddingTop: 5,
+  },
+
+  lastBtn3: {
+    width: 100,
+    height: 40,
+    backgroundColor: '#348224',
+    marginBottom: 40,
+    borderRadius: 6,
+    justifyContent: 'center',
+  },
+
+  buttonText3: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 10,
+    paddingTop: 5,
+  },
+
   profileImgContainer: {
     marginTop: 30,
     marginLeft: 8,
@@ -230,6 +404,38 @@ const styles = StyleSheet.create({
     width: 80,
     borderRadius: 40,
     alignItems: 'flex-end'
+  },
+
+  lastButton: {
+    flex: 3,
+    flexDirection: 'row',
+  },
+
+  lastBtn5: {
+    width: 90,
+    height: 53,
+    backgroundColor: '#9a090c',
+    justifyContent: 'center',
+    paddingTop: 4,
+  },
+
+  buttonText5: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 10,
+  },
+
+  lastBtn6: {
+    width: 150,
+    height: 53,
+    backgroundColor: '#9a090c',
+    justifyContent: 'center',
+    paddingTop: 4,
+    paddingRight: 25,
+    paddingLeft: 15,
+
   },
 })
 export default StudentHomepage;
