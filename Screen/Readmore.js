@@ -11,7 +11,7 @@ class Readmore extends React.Component {
   static contextType = NavigationContext;
   state = {
     checked: 'Null',
-
+    lecture: this.props.route.params
   };
 
 
@@ -24,7 +24,7 @@ class Readmore extends React.Component {
     return (
       <ScrollView>
         <React.Fragment>
-
+          {console.log(this.props.route.params)}
           <TouchableHighlight
             style={[styles.profileImgContainer, { borderColor: 'green', borderWidth: 1 }]}
           >
@@ -32,13 +32,14 @@ class Readmore extends React.Component {
           </TouchableHighlight>
           <View style={styles.contain}>
             <TextInput placeholder="Teacher Name" style={styles.input} editable={false} />
-            <TextInput placeholder="Course/Subject" style={styles.input} editable={false} />
-            <TextInput placeholder="Topic Name" style={styles.input} editable={false} />
+            <TextInput placeholder="Course/Subject" style={styles.input} value={this.state.lecture.course} editable={false} />
+            <TextInput placeholder="Topic Name" style={styles.input} value={this.state.lecture.topic} editable={false} />
           </View>
-          <View><Text style={styles.description}>Decription</Text></View>
+          <View><Text style={styles.description}>Description</Text></View>
           <View style={styles.MainContainer}>
             <TextInput
               editable={false}
+              value={this.state.lecture.description}
               style={styles.TextInputStyleClass}
               underlineColorAndroid="transparent"
               placeholder={"Type Something in Text Area."}

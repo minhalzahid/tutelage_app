@@ -129,7 +129,7 @@ class StudentHomepage extends React.Component {
 
                   <View style={styles.lastBtn3} >
                     <TouchableOpacity style={styles.buttonContainer3}
-                      onPress={() => navigation.navigate('Readmore')} >
+                      onPress={() => navigation.navigate('Readmore', x)} >
                       <Text style={styles.buttonText3}>Read More</Text>
                     </TouchableOpacity>
                   </View>
@@ -141,7 +141,7 @@ class StudentHomepage extends React.Component {
             )
           })}
         </ScrollView>
-        
+
         <View style={styles.lastButton} >
           <View style={styles.lastBtn5} >
             <TouchableOpacity style={styles.buttonContainer5}
