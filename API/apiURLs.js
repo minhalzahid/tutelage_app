@@ -10,5 +10,6 @@ export const URL = {
   enrollLecture: `${baseURL}/lecture/enroll`,
   chat: `${baseURL}/chat`,
   username: `${baseURL}/user`,
-  myLecture: `${baseURL}/lecture/myLectures`
+  myLecture: `${baseURL}/lecture/myLectures`,
+  searchLecture: `${baseURL}/lecture/search`,
 }

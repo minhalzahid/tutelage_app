@@ -22,3 +22,7 @@ export const getMyLectures = (id) => {
     return axios.get(`${URL.myLecture}/${id}`)
 }
 
+export const searchLectures = (query) => {
+    return axios.get(`${URL.searchLecture}/${query}`)
+}
+

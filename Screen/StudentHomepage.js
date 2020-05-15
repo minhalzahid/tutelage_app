@@ -5,7 +5,7 @@ import { CheckBox, Button } from 'react-native-elements'
 import { TouchableOpacity, ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
 import { NavigationContext } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-picker';
-import { getLecture, enrollLecture } from '../API/lectureAPI';
+import { getLecture, enrollLecture, searchLectures } from '../API/lectureAPI';
 
 const options = {
   title: 'my pic app',
@@ -19,7 +19,9 @@ class StudentHomepage extends React.Component {
 
   static contextType = NavigationContext;
   state = {
-    lecture: []
+    lecture: [],
+    searchedLectures: [],
+    query: ""
   }
 
   constructor(props) {
@@ -64,10 +66,29 @@ class StudentHomepage extends React.Component {
             </Text>
           </View> */}
           <View style={styles.field}>
-            <TextInput style={styles.search} placeholder=" Search Topic" />
-            <View style={styles.lastBtn4} >
+            <TextInput style={styles.search}
+              value={this.state.query}
+              onChange={(e) => {
+                if (e.nativeEvent.text === "") {
+                  this.setState({
+                    searchedLectures: [],
+                    query: e.nativeEvent.text
+                  })
+                }
+                else {
+                  this.setState({
+                    query: e.nativeEvent.text
+                  })
+                }
+              }}
+              placeholder=" Search Topic" />
+            <View style={styles.lastBtn4}>
               <TouchableOpacity style={styles.buttonContainer4}
-                onPress={() => navigation.navigate('search')}>
+                onPress={() => searchLectures(this.state.query).then(res => {
+                  this.setState({
+                    searchedLectures: res.data
+                  })
+                })}>
                 <Text style={styles.buttonText4}>Go</Text>
               </TouchableOpacity>
 
@@ -87,7 +108,7 @@ class StudentHomepage extends React.Component {
             </Text>
           </View>
 
-          {this.state.lecture.map((x, key) => {
+          {(this.state.searchedLectures.length === 0) ? this.state.lecture.map((x, key) => {
             return (
               <View style={{ borderBottomWidth: 1 }} key={key}>
                 <TouchableHighlight style={[styles.profileImgContainer, { borderColor: 'green', borderWidth: 1 }]}>
@@ -138,6 +159,57 @@ class StudentHomepage extends React.Component {
 
               </View>
 
+            )
+          }) : this.state.searchedLectures.map((x, key) => {
+            return (
+              <View style={{ borderBottomWidth: 1 }} key={key}>
+                <TouchableHighlight style={[styles.profileImgContainer, { borderColor: 'green', borderWidth: 1 }]}>
+                  <Image source={logo} style={styles.profileImg} />
+                </TouchableHighlight>
+
+                <View style={styles.contain}>
+                  <Text style={styles.input}>{x.course}</Text>
+                  <Text style={styles.input}>{x.topic}</Text>
+                </View>
+
+                <View><Text style={{ fontSize: 20, marginLeft: 12, marginTop: 15, }}>Description:</Text></View>
+                <View style={styles.MainContainer}>
+                  <TextInput
+                    style={styles.TextInputStyleClass}
+                    underlineColorAndroid="transparent"
+                    placeholder={"Type about Description."}
+                    value={x.description}
+                    placeholderTextColor={"#9E9E9E"}
+                    numberOfLines={5}
+                    multiline={true}
+                  />
+                </View>
+
+                <View style={styles.lastBtn} >
+                  <View style={styles.lastBtn1} >
+                    <TouchableOpacity style={styles.buttonContainer1}
+                      onPress={() => { alert('Request Sent Successfully!') }} >
+                      <Text style={styles.buttonText1}>Attend</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={styles.lastBtn2} >
+                    <TouchableOpacity style={styles.buttonContainer2}
+                      onPress={() => navigation.navigate('chat')} >
+                      <Text style={styles.buttonText2}>Chat</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={styles.lastBtn3} >
+                    <TouchableOpacity style={styles.buttonContainer3}
+                      onPress={() => navigation.navigate('Readmore', x)} >
+                      <Text style={styles.buttonText3}>Read More</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                </View>
+
+              </View>
             )
           })}
         </ScrollView>
