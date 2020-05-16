@@ -47,7 +47,7 @@ export default class Studentib extends React.Component {
     this.getData().then(res => {
       getChatList(res.user._id).then(chatData => {
         console.log(chatData.data)
-        this.setState({inboxList: chatData.data})
+        this.setState({ inboxList: chatData.data })
       }).catch(e => {
         alert(e)
       })
@@ -157,7 +157,7 @@ export default class Studentib extends React.Component {
             </View>
           </View>
         </SafeAreaView>
-        <View style={styles.lastBt} >
+        {/* <View style={styles.lastBt} >
           <Button
             title="Notification"
             type="outline"
@@ -168,7 +168,7 @@ export default class Studentib extends React.Component {
             type="outline"
             onPress={() => navigation.navigate('studentprofilepage')}
           />
-        </View>
+        </View> */}
       </ScrollView>
 
     );

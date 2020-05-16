@@ -178,7 +178,7 @@ class Teacherhomepage extends React.Component {
               <TouchableOpacity style={styles.buttonContainer1}
                 onPress={() => {
                   console.log(this.state)
-                  createLecture(this.state.course, this.state.topic, this.state.description, this.state.schedule, this.state.link).then(res => {
+                  createLecture(this.state.course, this.state.topic, this.state.description, this.state.schedule, this.state.link, this.state.token_id).then(res => {
                     alert("lecture Created !")
                     this.setState({
                       ...this.state.default

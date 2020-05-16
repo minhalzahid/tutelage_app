@@ -17,9 +17,10 @@ function chat(props) {
   const handleMessage = () => {
     getData().then(user => {
       let members = [
-        { member: user.user_id },
+        { member: user.user._id },
         { member: data.lecture.teacher_id }
       ]
+      // console.log(members)
       createChat(members).then(res => {
         let body = {
           message: {

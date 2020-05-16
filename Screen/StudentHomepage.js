@@ -5,7 +5,7 @@ import { CheckBox, Button } from 'react-native-elements'
 import { TouchableOpacity, ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
 import { NavigationContext } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-picker';
-import { getLecture, enrollLecture, searchLectures } from '../API/lectureAPI';
+import { getLecture, enrollLecture, searchLectures, lectureRequest } from '../API/lectureAPI';
 
 const options = {
   title: 'my pic app',
@@ -49,6 +49,23 @@ class StudentHomepage extends React.Component {
     })
   }
 
+  requestLecture = (lecture) => {
+    this.getData().then(user => {
+      let body = {
+        lecture_id: lecture._id,
+        receiver: lecture.teacher_id,
+        sender: user.user._id
+      }
+      console.log(body)
+      lectureRequest(body).then(res => {
+        alert("Your Request has been sent")
+      }).catch(e => {
+        console.log(e.response)
+        alert(e.response.data)
+      })
+    })
+  }
+
   render() {
     const navigation = this.context;
 
@@ -85,6 +102,9 @@ class StudentHomepage extends React.Component {
             <View style={styles.lastBtn4}>
               <TouchableOpacity style={styles.buttonContainer4}
                 onPress={() => searchLectures(this.state.query).then(res => {
+                  if (res.data.length === 0) {
+                    alert("No lectures found")
+                  }
                   this.setState({
                     searchedLectures: res.data
                   })
@@ -136,7 +156,7 @@ class StudentHomepage extends React.Component {
                 <View style={styles.lastBtn} >
                   <View style={styles.lastBtn1} >
                     <TouchableOpacity style={styles.buttonContainer1}
-                      onPress={() => { alert('Request Sent Successfully!') }} >
+                      onPress={() => this.requestLecture(x)} >
                       <Text style={styles.buttonText1}>Attend</Text>
                     </TouchableOpacity>
                   </View>
