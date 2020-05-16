@@ -12,4 +12,5 @@ export const URL = {
   username: `${baseURL}/user`,
   myLecture: `${baseURL}/lecture/myLectures`,
   searchLecture: `${baseURL}/lecture/search`,
+  lectureTeacher: `${baseURL}/lecture`
 }

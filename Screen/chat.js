@@ -1,15 +1,56 @@
 import * as React from 'react';
-import { View, TextInput, StyleSheet, Image, Text, } from 'react-native';
+import { View, TextInput, StyleSheet, Image, Text, AsyncStorage } from 'react-native';
 import { CheckBox, Button } from 'react-native-elements'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { createChat, sendMessage } from '../API/chatAPI';
 
-function chat({ navigation }) {
+function chat(props) {
+  const [data, setData] = React.useState({
+    message: "",
+    lecture: props.route.params,
+  })
+
+  const getData = async () => {
+    return JSON.parse(await AsyncStorage.getItem('user'))
+  }
+
+  const handleMessage = () => {
+    getData().then(user => {
+      let members = [
+        { member: user.user_id },
+        { member: data.lecture.teacher_id }
+      ]
+      createChat(members).then(res => {
+        let body = {
+          message: {
+            body: data.message,
+            user_id: user.user._id
+          }
+        }
+        sendMessage(res.data._id, body).then(res => {
+          setData({
+            ...data,
+            message: ""
+          })
+          alert("Message sent")
+        })
+      })
+    })
+  }
+
   return (
     <React.Fragment>
       <View style={styles.MainContainer}>
         <View styles={styles.start}><Text style={styles.message}>Message</Text></View>
         <TextInput
           style={styles.TextInputStyleClass}
+          value={data.message}
+          onChange={(e) => {
+            setData({
+              ...data,
+              message: e.nativeEvent.text
+            })
+          }}
           underlineColorAndroid="transparent"
           placeholder={"Enter the text."}
           placeholderTextColor={"#9E9E9E"}
@@ -19,7 +60,7 @@ function chat({ navigation }) {
 
         <View style={styles.lastBtn1} >
           <TouchableOpacity style={styles.buttonContainer1}
-            onPress={() => { alert('Message has been Sent.') }} >
+            onPress={handleMessage} >
             <Text style={styles.buttonText1}>Send</Text>
           </TouchableOpacity>
 

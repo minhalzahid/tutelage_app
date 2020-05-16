@@ -143,7 +143,7 @@ class StudentHomepage extends React.Component {
 
                   <View style={styles.lastBtn2} >
                     <TouchableOpacity style={styles.buttonContainer2}
-                      onPress={() => navigation.navigate('chat')} >
+                      onPress={() => navigation.navigate('chat', x)} >
                       <Text style={styles.buttonText2}>Chat</Text>
                     </TouchableOpacity>
                   </View>

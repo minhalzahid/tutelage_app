@@ -4,6 +4,8 @@ import { CheckBox, Button } from 'react-native-elements'
 import { TouchableOpacity, ScrollView, TouchableHighlight } from 'react-native-gesture-handler';
 import { NavigationContext } from '@react-navigation/native';
 import { RadioButton } from 'react-native-paper';
+import { getTeacher } from '../API/lectureAPI'
+
 const logo = require('../images/log.jpeg');
 
 class Readmore extends React.Component {
@@ -11,14 +13,23 @@ class Readmore extends React.Component {
   static contextType = NavigationContext;
   state = {
     checked: 'Null',
-    lecture: this.props.route.params
+    lecture: this.props.route.params,
+    teacher: null,
   };
+
+  componentDidMount() {
+    getTeacher(this.state.lecture.teacher_id).then(res => {
+      this.setState({
+        teacher: res.data
+      })
+    })
+  }
 
 
 
   render() {
     const navigation = this.context;
-
+    const { teacher } = this.state;
 
 
     return (
@@ -31,7 +42,7 @@ class Readmore extends React.Component {
             <Image source={logo} style={styles.profileImg} />
           </TouchableHighlight>
           <View style={styles.contain}>
-            <TextInput placeholder="Teacher Name" style={styles.input} editable={false} />
+            <TextInput placeholder="Teacher Name" style={styles.input} value={(teacher) ? `${teacher.name.firstName} ${teacher.name.lastName}` : ""} editable={false} />
             <TextInput placeholder="Course/Subject" style={styles.input} value={this.state.lecture.course} editable={false} />
             <TextInput placeholder="Topic Name" style={styles.input} value={this.state.lecture.topic} editable={false} />
           </View>
