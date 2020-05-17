@@ -2,11 +2,13 @@ import * as React from 'react';
 import { View, TextInput, StyleSheet, Image, Text, Picker } from 'react-native';
 import { CheckBox, Button } from 'react-native-elements'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
-import ImagePicker from 'react-native-image-picker';
 import { NavigationContext } from '@react-navigation/native';
 import { RadioButton } from 'react-native-paper';
 import { signUp } from '../API/authAPI';
 import { config } from '../config';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
 
 const options = {
   title: 'Choose Profile Photo',
@@ -16,11 +18,43 @@ const options = {
 
 
 
+
 const logo = require('../images/logo.jpeg'); //Apply Logo pic
 class SignUpScreen extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  componentDidMount() {
+    this.getPermissionAsync();
+  }
+
+  getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
+  };
+
+  _pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  };
 
 
   myfun = () => {
@@ -62,7 +96,8 @@ class SignUpScreen extends React.Component {
     gender: 0,
     userType: 0,
     username: "",
-    password: ""
+    password: "",
+    image: null
   };
 
 
@@ -107,6 +142,10 @@ class SignUpScreen extends React.Component {
               </View>
 
             </View>
+          </View>
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Button title="Pick an image from camera roll" onPress={this._pickImage} />
+            {this.state.image && <Image source={{ uri: this.state.image }} style={{ width: 200, height: 200 }} />}
           </View>
           <View style={styles.contain}>
             <TextInput placeholder="First Name" style={styles.input}
