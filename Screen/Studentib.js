@@ -47,7 +47,7 @@ export default class Studentib extends React.Component {
     this.getData().then(res => {
       getChatList(res.user._id).then(chatData => {
         console.log(chatData.data)
-        this.setState({inboxList: chatData.data})
+        this.setState({ inboxList: chatData.data })
       }).catch(e => {
         alert(e)
       })
@@ -131,7 +131,7 @@ export default class Studentib extends React.Component {
                         {/* Title Code Like Teacher Name */}
                         <View style={{ flex: 0.5, justifyContent: 'flex-start' }}>
                           <View style={{ flex: 0.3, justifyContent: 'flex-start' }}>
-                            <Text style={{ color: '#000000', fontSize: 20, fontFamily: 'sans-serif', paddingBottom: 5 }}> {this.getUserInfo(item.members[1].member)} </Text>
+                            <Text style={{ color: '#000000', fontSize: 20, fontFamily: 'sans-serif', paddingBottom: 5 }}> {`${item.sender.firstName} ${item.sender.lastName}`} </Text>
                           </View>
                           {/* Subtitle Code Like  Text Initiate  */}
                           <View style={{ flex: 0.1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', paddingTop: 5 }}>
@@ -157,7 +157,7 @@ export default class Studentib extends React.Component {
             </View>
           </View>
         </SafeAreaView>
-        <View style={styles.lastBt} >
+        {/* <View style={styles.lastBt} >
           <Button
             title="Notification"
             type="outline"
@@ -168,7 +168,7 @@ export default class Studentib extends React.Component {
             type="outline"
             onPress={() => navigation.navigate('studentprofilepage')}
           />
-        </View>
+        </View> */}
       </ScrollView>
 
     );

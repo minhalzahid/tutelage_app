@@ -11,10 +11,11 @@ import {
   TouchableOpacity,
   Image,
   CheckBox,
+  AsyncStorage
 } from 'react-native';
 import { NavigationContext } from '@react-navigation/native';
 import { Button } from 'react-native-elements'
-
+import { getRequestList } from '../API/lectureAPI';
 import {
   Header,
   LearnMoreLinks,
@@ -26,47 +27,27 @@ const logo = require('../images/std4.jpg');
 const logo1 = require('../images/pc.jpg');
 const logo2 = require('../images/test.jpg');
 const logo3 = require('../images/Aj.jpg');
+import { config } from '../config'
+
+const { status } = config
 export default class Request extends React.Component {
   static contextType = NavigationContext;
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: '',
-      demoArray: [
+  state = {
+    requestList: []
+  }
 
-        {
-          id: '1',
-          name: "Student Name",
-          subtitle: 'Topic name',
-          image: logo,
-          category: "Teacher"
-        },
-        {
-          id: '2',
-          name: "Student Name",
-          subtitle: 'Topic name',
-          image: logo1,
-          category: "Teacher"
-        },
-        {
-          id: '3',
-          name: "Student Name",
-          subtitle: 'Topic name',
-          image: logo2,
-          category: "Teacher"
-        },
-        {
-          id: '4',
-          name: "Student Name",
-          subtitle: 'Topic name',
-          image: logo3,
-          category: "Teacher"
-        },
+  getData = async () => {
+    return JSON.parse(await AsyncStorage.getItem('user'))
+  }
 
-
-      ],
-      // demoArray:[{id:0,name:'Akhzar'},{id:1,name:'Abrar'}],
-    };
+  componentDidMount() {
+    this.getData().then(res => {
+      getRequestList(res.user._id).then(list => {
+        this.setState({
+          requestList: list.data
+        })
+      })
+    })
   }
 
 
@@ -87,7 +68,7 @@ export default class Request extends React.Component {
                 </View>
 
                 <FlatList
-                  data={this.state.demoArray}
+                  data={this.state.requestList}
                   initialNumToRender={1}
                   extraData={this.state}
                   keyExtractor={(item, index) => index.toString()}
@@ -100,7 +81,10 @@ export default class Request extends React.Component {
                         {/* First Apply image Code and View of Image in Flate List */}
                         <View style={{ flex: 1, flexDirection: 'row' }}>
                           <View style={styles.MainContainer}>
-                            <Image source={item.image} style={{ width: 90, height: 90, borderRadius: 170 / 2 }} />
+                            <Text style={{ width: 150, fontSize: 25 }}>{item.sender.name}</Text>
+                            <Text style={{ width: 150, fontSize: 15 }}>{item.lecture.course}</Text>
+                            <Text style={{ width: 150, fontSize: 15 }}>{item.lecture.topic}</Text>
+                            <Text style={{ width: 150, fontSize: 15 }}>Status: {status[item.status]}</Text>
                           </View>
                           {/* Title Code Like Teacher Name */}
                           <View style={{ justifyContent: 'flex-start', height: 100, marginLeft: 60 }}>
@@ -156,7 +140,7 @@ export default class Request extends React.Component {
 
           <View style={styles.lastBtn8} >
             <TouchableOpacity style={styles.buttonContainer1}
-              onPress={() => navigation.navigate('Teacherinbox')}>
+              onPress={() => navigation.navigate('Studentinbox')}>
               <Text style={styles.buttonText5}>Inbox</Text>
             </TouchableOpacity>
 
