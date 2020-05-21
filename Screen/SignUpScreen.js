@@ -47,7 +47,7 @@ class SignUpScreen extends React.Component {
         quality: 1,
       });
       if (!result.cancelled) {
-        this.setState({ image: result.uri });
+        //this.setState({ image: result.uri });
       }
 
       console.log(result);
@@ -97,7 +97,6 @@ class SignUpScreen extends React.Component {
     userType: 0,
     username: "",
     password: "",
-    image: null
   };
 
 
