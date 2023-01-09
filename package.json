@@ -40,7 +40,7 @@
     "react-native-web": "^0.12.2",
     "react-native-webview": "^8.1.2",
     "socket.io-client": "^2.3.0",
-    "stream-chat": "^1.8.0"
+    "stream-chat": "^8.2.1"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.1.0",
